@@ -25,7 +25,7 @@ class MemberServiceIntegrationTest {
     void 회원가입() {
         // given
         Member member = new Member();
-        member.setName("hello");
+        member.setName("hello!");
         // when
         Long saveId = memberService.join(member);
 
@@ -52,18 +52,19 @@ class MemberServiceIntegrationTest {
 
     @Test
     void 전체_멤버_찾기() {
+        int size = memberRepository.findAll().size();
         //given
         Member member1 = new Member();
         member1.setName("spring1");
-        memberRepository.save(member1);
+        memberService.join(member1);
         Member member2 = new Member();
         member2.setName("spring2");
-        memberRepository.save(member2);
+        memberService.join(member2);
 
         //when
         List<Member> result = memberRepository.findAll();
 
         //then
-        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(size + 2);
     }
 }
